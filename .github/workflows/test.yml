@@ -31,8 +31,9 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           python -m pip install -r requirements.txt
+      - name: Wait for tidb to start
+        run: sleep 20
       - name: Run tests
         run: |
-          sleep 20 # wait for tidb to start
           python mysql_connector_example.py > temp
           diff temp Expected-Output.txt
