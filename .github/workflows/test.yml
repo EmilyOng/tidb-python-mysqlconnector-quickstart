@@ -33,5 +33,6 @@ jobs:
           python -m pip install -r requirements.txt
       - name: Run tests
         run: |
+          sleep 20 # wait for tidb to start
           python mysql_connector_example.py > temp
           diff temp Expected-Output.txt
