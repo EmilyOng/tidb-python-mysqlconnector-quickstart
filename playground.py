@@ -47,12 +47,15 @@ def run_sql() -> None:
 
     with get_connection(autocommit=True) as connection:
         with connection.cursor(dictionary=True) as cursor:
+            cursor.execute("DROP DATABASE IF EXISTS test;")
             cursor.execute("CREATE DATABASE test;")
             cursor.execute("USE test;")
             try:
                 for result in cursor.execute(sql, multi=True):
                     if result.with_rows and result.statement.upper().startswith("SELECT"):
-                        print(result.fetchall())
+                        fetched_result = result.fetchall()
+                        print(len(fetched_result))
+                        print(fetched_result)
             except Exception as e:
                 print(e)
             cursor.execute("DROP DATABASE test;")
